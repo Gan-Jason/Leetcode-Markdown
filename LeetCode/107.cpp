@@ -20,7 +20,7 @@ public:
         // qu.push(NULL);
         while(!qu.empty())                  //队列非空时循环遍历树节点
         {
-            int levelNodeNum=qu.size();     //当前层结点数等于队列节点数，解决问题最关键的一点
+            int levelNodeNum=qu.size();     //当前层结点数等于队列节点数，解决问题最关键的一点，先把一层的结点都入队，在for循环遍历后出队，就不会和后面的结点混在一起，也就是说队列里永远只有当前层的结点。
             temp.clear();                   
             for(int i=0;i<levelNodeNum;i++) //循环遍历当前层结点，有左右孩子的结点的话孩子入队
             {
