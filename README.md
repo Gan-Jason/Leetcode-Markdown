@@ -1,2 +1,3 @@
 # Leetcode-sMarkdown
-## 刷Leetcode的个人笔记
+ [^刷Leetcode的个人笔记]
+ 
