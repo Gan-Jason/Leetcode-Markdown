@@ -1,6 +1,6 @@
 // 这题出的不太好，DFS,BFS都可以快速解答
 
-// 1. DFS
+// 1. DFS,时间复杂度这个较小
 class Solution {
     public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
         return getNode(cloned,target.val);
@@ -17,7 +17,7 @@ class Solution {
     }
 }
 
-//2. BFS
+//2. BFS,
 class Solution {
     public final TreeNode getTargetCopy(final TreeNode original, final TreeNode cloned, final TreeNode target) {
         if(cloned==null)return target;
