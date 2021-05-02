@@ -3,6 +3,9 @@
 // 转变思路为top down，但是找不到子状态，也就是想不到如何把根节点的状态传下去，从而判断子树是否符合
 //如果用max和min传值下去，则左子树中，最大值将是根节点的值，右子树中，最小值就是根节点的值，每一个节点都在(min,max)范围内
 
+//这一题的递归看似抽象，当仔细理解的时候会有一点绕，但是抽象的理解时候，发现只要考虑中间状态，或者当前节点，只要把递归结束条件/子状态也都抽象化传下去/传上来，整棵树都适用。
+
+
 public class Solution {
     public boolean isValidBST(TreeNode root) {
         return BST(root,Long.MAX_VALUE,Long.MIN_VALUE);           //
