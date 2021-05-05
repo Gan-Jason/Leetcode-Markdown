@@ -1,7 +1,13 @@
 /**
   *
   * Given preorder and inorder traversal of a tree, construct the binary tree
-  *
+  * 1. 本题19年做过一次，今天是20210505，劳动节放假
+  * 2. 本题思路是分治法，找到问题的子状态/子问题，递归解决问题，应该是属于数组类型，当前序和中序的长度为1时，树的根节点就是唯一这个节点；前序的第一个节点都是树/子树的根节点，
+  * 在中序序列中找到根节点所在位置，根节点的左侧是左子树，右侧是右子树 ，然后递归进行
+  * 3. 优化：递归时，传入的前序和中序可以是原数组，只要找到定义本次序列的位置即可，即便是只有一个前序序列也是可以的，因为它包含了所有节点，只需要找到划分左右的下标。
+  * 因此，空间上优化是用原来的数组，传参下标；先在第一次遍历，在原中序中找到所有前序根节点的下标并保存在map中，方便使用，取出时时间花销为常数，递归时，只用前序序列以及相应的下标
+  * 4. 还有一点，数组找下标问题，要透过问题看本质，理解这个下标的含义再用相应的变量去表示它，比如前序中的下标，是根据中序的下标走过的长度确定的，故前序的下标就是inlength-prestart
+  * 不能没有根据的乱写，否则在边界会有问题。
   *
   /
   
@@ -14,6 +20,7 @@
  *     TreeNode right;
  *     TreeNode(int x) { val = x; }
  * }
+ * 2019/09
  */
 class Solution {
     public TreeNode buildTree(int[] preorder, int[] inorder) {
@@ -60,3 +67,33 @@ class Solution {
     }
 
 }
+
+
+
+class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        TreeNode root=build(preorder,inorder,0,0,inorder.length-1);
+        
+        return root;
+    }
+    
+    public TreeNode build(int[] preorder,int[] inorder,int preStart,int inStart,int inEnd){
+        if(inStart>inEnd)return null;
+        if(inStart==inEnd){
+            return new TreeNode(preorder[preStart]);
+        }
+        TreeNode root=new TreeNode(preorder[preStart]);
+            for(int j=inStart;j<=inEnd;j++){
+                if(inorder[j]==preorder[preStart]){
+                    root.left=build(preorder,inorder,preStart+1,inStart,j-1);
+                    root.right=build(preorder,inorder,preStart+j+1-inStart,j+1,inEnd);
+                    break;
+                }
+            }
+        return root;
+
+        
+    }
+    
+}
+
