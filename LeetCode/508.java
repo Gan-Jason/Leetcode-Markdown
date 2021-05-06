@@ -47,7 +47,7 @@ class Solution {
 
 
 
-class Solution {    //别人的思路
+class Solution {    //别人的思路，用map可以解决一些最值的问题，例如记录最高频率。最长长度等
     int maxFreq = 0;
     int count = 0;
     public int[] findFrequentTreeSum(TreeNode root) {
