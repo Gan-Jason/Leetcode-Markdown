@@ -50,5 +50,19 @@ class Solution {
         
     }
     
-    
 }
+
+//第二个思路就是纯dfs，topdown，子状态是，如果root是目标，则LCA是root，如果root不是，则dfs root.left，和root.right，如果left 和right都为空就只能是root；如果其一不为空，说明
+//p和q肯定在这一叉树里，并返回最低的那个root；如果left和right都不是空，则肯定是root为最低祖先
+
+    public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+        if(root==null||root.val==p.val||root.val==q.val)return root;
+        TreeNode left=lowestCommonAncestor(root.left,p,q);
+        TreeNode right=lowestCommonAncestor(root.right,p,q);
+        if(left==null&&right==null)return null;
+        if(left!=null&&right!=null)return root;
+        return left==null?right:left;
+        
+    }
+
+
