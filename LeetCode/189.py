@@ -20,3 +20,25 @@ class Solution:                                                         #循环�
         #             nums[head],nums[tail]=nums[tail],nums[head]
         #             head+=1
         #             tail-=1
+
+ //从第一个数开始往后交换，每个数要换到下一个位置next，next=(cur+k)%nums.length，当换了一圈时，会有一部分没有被换到，因此需要一个外循环，从0开始迭代，
+//循环结束条件是只要交换的数量为nums.length即可
+class Solution {
+    public void rotate(int[] nums, int k) {
+        if(nums.length<=1){
+            return;
+        }
+        int count=0;
+        for(int i=0;i<nums.length&&count<nums.length;i++){
+            int pre=nums[i],cur=i;
+            do{
+                int next=(cur+k)%nums.length;
+                int t=nums[next];
+                nums[next]=pre;
+                pre=t;
+                cur=next;
+                count++;
+            }while(cur!=i&&count<=nums.length);
+        }
+    }
+}
