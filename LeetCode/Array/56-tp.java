@@ -15,9 +15,8 @@ class Solution {
             if(i>ans.size()){
                 ans.add(intervals[j]);
             }
-            else if(intervals[j][0]<=ans.get(i)[1]){      //排序后这里比较久简单多了
-                ans.get(i)[1]=Math.max(intervals[j][1],ans.get(i)[1]);
-                ans.get(i)[0]=Math.min(intervals[j][0],ans.get(i)[0]);
+            else if(intervals[j][0]<=ans.get(i)[1]){      //排序后这里比较就简单多了
+                ans.get(i)[1]=Math.max(intervals[j][1],ans.get(i)[1]);      //第一个元素是有序的，因此不用再比较
             }else{
                 ans.add(intervals[j]);
                 i++;
