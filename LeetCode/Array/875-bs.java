@@ -1,7 +1,7 @@
 //这题是二分+贪心的变形，这里不用贪心了，直接找mid当作吃香蕉的速度k，然后计算吃完这堆需要多少小时，如果在给定的范围内，则符合条件，并移动right
 //如果超过了时间范围，则是mid给小了，移动left
 //这题要注意的地方是，计算时间，即总数/速度=时间，这里需要向上取整。如果不做向上取整的话，就需要自己分情况计算会比较麻烦。
-//向上取整也会容易出错，Math.ceil()=(piles[i]-1)/mid+1,直接用ceil会出错
+//向上取整也会容易出错，Math.ceil()=(piles[i]-1)/mid+1,直接用ceil会出错,因为还需要对ceil里的参数进行double转型。调用ceil接口速度会变慢很多
 
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
