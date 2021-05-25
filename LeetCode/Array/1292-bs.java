@@ -31,26 +31,30 @@ class Solution {
         return left;
     }
     private boolean check(int[][] mat,int mid,int threshold,int[][] prefix){
-        if(mid==1){   //边长为1时，只需要判断每个元素的值
+        int sum=0;
+        if(mid==1){     //边长为1时，只需判断matrix的值
             for(int i=0;i<mat.length;i++){
                 for(int j=0;j<mat[0].length;j++){
                     if(mat[i][j]<=threshold)return true;
                 }
             }
-        }
-        for(int i=0;i<=mat.length-mid;i++){
-            for(int j=0;j<=mat[0].length-mid;j++){
-                if(i==0||j==0){   //当正方形顶点在边界上，正方形右下角的前缀和的值就是答案
-                    if(prefix[i+mid-1][j+mid-1]<=threshold){
-                        return true;
+        }else{
+            for(int i=0;i<=mat.length-mid;i++){
+                for(int j=0;j<=mat[0].length-mid;j++){
+                    if(i==0&&j==0){         //顶点在原点处，prefix的值就是正方形的元素和
+                        sum=prefix[i+mid-1][j+mid-1];
+                    }else if(i==0&&j>0){       //顶点在上边界，减去正方形左边空白的元素和
+                        sum=prefix[i+mid-1][j+mid-1]-prefix[i+mid-1][j-1];
+                    }else if(i>0&&j==0){        //顶点在做边界，减去正方形上面空白的元素和
+                        sum=prefix[i+mid-1][j+mid-1]-prefix[i-1][j+mid-1];
                     }
-                }else{    //当顶点不在边界上，元素和需要作重叠/空白区域计算
-                    if((prefix[i+mid-1][j+mid-1]-prefix[i-1][j+mid-1]-prefix[i+mid-1][j-1]+prefix[i-1][j-1])<=threshold){
-                        return true;
+                    else{       //顶点在(1,1)之后
+                        sum=prefix[i+mid-1][j+mid-1]-prefix[i-1][j+mid-1]-prefix[i+mid-1][j-1]+prefix[i-1][j-1];
                     }
+                    if(sum<=threshold)return true;
                 }
+            }
         }
-    }
-    return false;
+        return false;
     }
 }
