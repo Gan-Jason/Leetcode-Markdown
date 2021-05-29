@@ -3,11 +3,8 @@ we use an integer pos which represents the position (0-indexed) in the linked li
 If pos is -1, then there is no cycle in the linked list.'''
 
 
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+//本题考查的是判断是否为圈，用快慢指针的话，快指针会比慢的多走一轮，最后追上慢指针
+//初始化的时候快的在前面，或者两者在同一起点的话，判断条件为p.next.next!=null
 
 
 class Solution(object):
@@ -28,3 +25,42 @@ class Solution(object):
                 q = q.next
         return True                                                         
         
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        if(head==null||head.next==null){
+            return false;
+        }
+        // 1.
+        //Set<ListNode> ans=new HashSet<>();
+        // while(head!=null){
+        //     if(ans.add(head)){
+        //         head=head.next;
+        //     }else{
+        //         return true;
+        //     }
+        // }
+        // return false;
+        //2.
+        // int count=0;
+        // while(head!=null){
+        //     head=head.next;
+        //     if(++count>10000){
+        //         return true;
+        //     }
+        // }
+        //3. 
+        ListNode slow=head,fast=head;
+        do{
+            if(fast!=null&&fast.next!=null){
+                if((fast=fast.next)==slow){
+                    return true;
+                }
+                fast=fast.next;
+                slow=slow.next;
+            }else{  
+                return false;
+            }
+        }while(slow!=head);
+        return true;
+    }
+}
