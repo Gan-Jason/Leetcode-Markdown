@@ -1,9 +1,6 @@
-/*
-* Reverse a linked list from position m to n. Do it in one-pass.
-*
-* Note: 1 ≤ m ≤ n ≤ length of list.
-**/
-
+//这题反转链表升级，只需要找到left，pre为left前节点，反转left到right即可
+//思路清晰的做法就是，找到pre，left，right，end(right下一个)，把left到right从原链表中切断出来，反转left，再接回去
+//其他方法就是找到pre，头插法反转left到right，循环条件时反转的节点数为right-left
 
 
 /**
@@ -14,6 +11,60 @@
  *     ListNode(int x) { val = x; }
  * }
  */
+
+class Solution {
+    public ListNode reverseBetween(ListNode head, int left, int right) {
+        //1. 复杂度为2n
+        if(head.next==null||left==right){
+            return head;
+        }
+        ListNode fake=new ListNode(-1),rNode=fake,pre=fake;
+        fake.next=head;
+        for(int i=1;i<left;i++){
+            pre=pre.next;
+        }
+        // for(int j=1;j<=right;j++){
+        //     rNode=rNode.next;
+        // }
+        // ListNode lNode=pre.next,end=rNode.next;
+        // rNode.next=null;
+        // pre.next=null;
+        // ListNode ans=reverseList(lNode);
+        // pre.next=ans;
+        // lNode.next=end;
+        // if(1==left){
+        //     return pre.next;
+        // }
+        // return head;
+        //2. 头插法
+        ListNode cur=pre.next,next;
+        for(int i=0;i<right-left;i++){
+            next=cur.next;
+            cur.next=next.next;
+            next.next=pre.next;
+            pre.next=next;
+        }
+        return fake.next;
+        
+    }
+    // private ListNode reverseList(ListNode head) {
+    //     if(head==null||head.next==null){
+    //         return head;
+    //     }
+    //     ListNode pre=head,p=head.next,q=p.next;
+    //     head.next=null;
+    //     while(q!=null){
+    //         p.next=pre;
+    //         pre=p;
+    //         p=q;
+    //         q=q.next;
+    //     }
+    //     p.next=pre;
+    //     return p;
+    // }
+}
+
+//下面是第一次做的答案
 class Solution {
     public ListNode reverseBetween(ListNode head, int m, int n) {
         if(head==null) return head;
