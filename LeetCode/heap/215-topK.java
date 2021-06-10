@@ -1,7 +1,7 @@
 //求top k第一反应用堆，当然排序也可以，
 //大顶堆，一次性建好堆后，poll k次，复杂度为 O(knlogn)
-//小顶堆，维护一个k个元素的小顶堆，继续遍历原数组，遇到比堆顶大的就入堆，当堆内超过k个时，弹出堆，时间复杂度O((n+k)logk);自己实现的堆复杂度为o((n+k)logk)，用PriorityQueue则是o(knlogk)
-
+//小顶堆，维护一个k个元素的小顶堆，继续遍历原数组，遇到比堆顶大的就入堆，当堆内超过k个时，弹出堆，
+//时间复杂度O(nlogk);
 class Solution {
     public int findKthLargest(int[] nums, int k) {
         int len=nums.length;
