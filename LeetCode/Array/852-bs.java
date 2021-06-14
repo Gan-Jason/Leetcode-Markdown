@@ -6,7 +6,7 @@ class Solution {
     public int peakIndexInMountainArray(int[] arr) {
         int left=0,right=arr.length-1;
         while(left<right){
-            int mid=left+(right-left+1)/2;    //注意mid取值
+            int mid=left+(right-left+1)/2;    //注意mid取值，这用right-left是为了防止溢出，如果right和left都很大时，用right+left就可能会溢出
             if(arr[mid]>arr[mid-1]&&arr[mid]>arr[mid+1]){   //山顶直接返回，这里也可以不用判断，就是再走一遍循环的时间，代码有点冗余
                 return mid;
             }else if(arr[mid]<arr[mid-1]){
