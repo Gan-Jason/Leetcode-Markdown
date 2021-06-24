@@ -14,7 +14,7 @@ class Solution {
         return ans;
     }
 
-    // private void getAll(String s,int len,int n){   //暴力解，枚举所有情况，再对每个情况进行验证
+    // private void getAll(String s,int len,int n){   //暴力解，枚举所有情况，再对每个情况进行验证，这里也是回溯
     //     if(len==n){
     //         if(valid(s)){
     //             ans.add(s);
@@ -37,7 +37,7 @@ class Solution {
             ans.add(s);
             return;
         }
-        getAll(s+"(",left+1,right,n);   //回溯的操作，在形式参数中传入选择的选项，当递归回来时行参消失
+        getAll(s+"(",left+1,right,n);   //回溯的操作，在形式参数中传入选择的选项，当递归回来时形参消失
         getAll(s+")",left,right+1,n);
     }
 //     private boolean valid(String s){    //验证字符串是否有效
@@ -54,4 +54,21 @@ class Solution {
 //         }
 //         return balance==0;
 //     }
+    
+//2021.6.25 通过画树形图，自己想明白了这个题目的思路：每个位置必须得选一个括号，要么左要么右，一直选到2的2n次方层树叶节点中，此时是一颗满二叉树，只要从这个树中search出答案即可，
+//dfs进行search，如果是没有约束条件的话就直接search整棵树，但这里要求括号有效，因此要考虑有效的search路径，base case check:当前的string长度==2n
+//还需要剪枝，剪枝的条件清晰：左右括号必须小于<n（等于n时已经加入答案并且递归返回了），且当前答案的右括号数量不能大于左括号的，
+        private void dfs(String sb,int n,int left,int right){
+        if(sb.length()==2*n){
+            ans.add(sb);
+            return;
+        }
+        if(left<n){
+            dfs(sb+"(",n,left+1,right);
+        }
+        if(right<left){
+            dfs(sb+")",n,left,right+1);
+        }
+    }
+    
 }
