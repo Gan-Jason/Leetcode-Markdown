@@ -19,4 +19,21 @@ class Solution {
         }
         return dp[m][n];
     }
+    //dfs,bottom up
+    private int dfs(String text1,String text2,int i,int j){
+        if(i==0||j==0){
+            return 0;
+        }
+        if(dp[i][j]!=0){
+            return dp[i][j];
+        }
+        int ans=0;
+        if(text1.charAt(i-1)==text2.charAt(j-1)){
+            ans=dfs(text1,text2,i-1,j-1)+1;
+        }else{
+            ans=Math.max(dfs(text1,text2,i-1,j),dfs(text1,text2,i,j-1));
+        }
+        return dp[i][j]=ans;
+
+    }
 }
