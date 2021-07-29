@@ -2,6 +2,8 @@
 // 导致叶子节点遍历完后还在path里，从而影响右子树的遍历，一开始想着深拷贝然后清空path，但是把root也清空了。在这里想了很久。
 // 最后看讨论区发现，实现都是把每个节点都保存了，当一个节点左右子树遍历完后就删掉path最后一个节点，效果相当于传变量是个临时变量，回到上一层就没了下一层的节点
 
+//2021-07-30更新，上面说的是回溯的意思。。
+
 class Solution {
     private List<List<Integer>> anser=new ArrayList<>();
     
@@ -16,7 +18,7 @@ class Solution {
         if(root==null)return;
         sum+=root.val;
 
-        path.add(root.val);       //每个节点都可以放进去，一开始我这里做了判断，sum>target时候就return，但是出现负数的时候这个判断就有问题了，负数会大于taget
+        path.add(root.val);       //每个节点都可以放进去，一开始我这里做了判断，sum>target时候就return，但是出现负数的时候这个判断就有问题了，负数会大于taget；第二次做也再次犯次错
         if(root.left==null&&root.right==null){
             if(sum==targetSum)
             {
