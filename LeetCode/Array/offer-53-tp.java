@@ -11,32 +11,6 @@ class Solution {
         if(nums.length==0){
             return 0;
         }
-        // int ans=0;
-        // int i=0,j=nums.length-1;
-        // int pos=-1;
-        // while(i<=j){
-        //     int mid=i+((j-i)>>1);
-        //     if(nums[mid]==target){
-        //         pos=mid;
-        //         break;
-        //     }else if(nums[mid]>target){
-        //         j=mid-1;
-        //     }else{
-        //         i=mid+1;
-        //     }
-        // }
-        // if(pos!=-1){
-        //     i=pos;
-        //     j=pos-1;
-        //     while(i<nums.length&&nums[i]==target){
-        //         ans++;
-        //         i++;
-        //     }
-        //     while(j>=0&&nums[j]==target){
-        //         ans++;
-        //         j--;
-        //     }
-        // }
         int l=getPos(nums,target,true);
         System.out.print(l);
         if(l==-1){
