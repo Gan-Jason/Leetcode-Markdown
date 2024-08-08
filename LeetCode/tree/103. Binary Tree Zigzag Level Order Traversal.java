@@ -91,3 +91,40 @@ class Solution {
 
     }
     }
+
+    // 2024.7.29答案
+
+class Solution {
+    public List<List<Integer>> zigzagLevelOrder(TreeNode root) {
+        List<List<Integer>> ans = new ArrayList<>();
+        if (root == null) {
+            return ans;
+        }
+        TreeNode[] queue = new TreeNode[2050];
+        int head = 0, tail = 0;
+        queue[tail++] = root;
+        int level = 0;
+        while (head < tail) {
+            List<Integer> tmpList = new ArrayList<>();
+            int end = tail;// 注意逐层遍历时，遍历条件的右边界不要移动
+            while (head < end) {
+                TreeNode p = queue[head++]; // 层次遍历，出队一个节点
+                if (p != null) { // 根据层的单双决定顺序
+                    if (level % 2 == 0) {
+                        tmpList.add(p.val);
+                    } else {
+                        tmpList.add(0, p.val);
+                    }
+                    // 该节点的子节点入队
+                    queue[tail++] = p.left;
+                    queue[tail++] = p.right;
+                }
+            }
+            if (!tmpList.isEmpty()) {
+                ans.add(tmpList);
+            }
+            level++;
+        }
+        return ans;
+    }
+}

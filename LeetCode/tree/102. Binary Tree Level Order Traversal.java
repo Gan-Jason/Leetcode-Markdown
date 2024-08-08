@@ -53,3 +53,66 @@
         return ans;
 
     }
+
+// 2024.7.29答案
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
+ */
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        if (root == null) {
+            return true;
+        }
+        // 层次遍历，用队列保存树节点
+        TreeNode[] queue = new TreeNode[1001];
+        int head = 0, tail = 0;
+        //根节点先入队
+        queue[tail++] = root;
+        while (head < tail) {//队列不为空时，表示树未遍历完
+            // 用当前队列的头尾保存当前层的结点，可以先遍历当前层并判断是否为回文/对称
+            for (int i = head, j = tail - 1; i <= j; i++, j--) {
+                if (queue[i] == null && queue[j] == null) {// null节点作为占位，也可以对称
+                    continue;
+                }
+                if (queue[i] == null || queue[j] == null || queue[i].val != queue[j].val) {
+                    return false;
+                }
+            }
+            // 真正的层遍历，出队一个节点随即入队该节点的子节点
+            int end = tail;
+            while (head < end) {
+                TreeNode p = queue[head++];
+                if (p != null) {
+                    queue[tail++] = p.left;
+                    queue[tail++] = p.right;
+                }
+            }
+        }
+        return true;
+    }
+}
+
+
+
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        return root == null || isMirror(root.left, root.right);
+    }
+
+    public boolean isMirror(TreeNode t1, TreeNode t2) {
+        return t1 == null && t2 == null || t1 != null && t2 != null && t1.val == t2.val && isMirror(t1.left, t2.right)
+                && isMirror(t1.right, t2.left);
+    }
+}

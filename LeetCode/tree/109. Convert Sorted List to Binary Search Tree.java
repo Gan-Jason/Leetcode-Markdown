@@ -60,3 +60,32 @@ class Solution {
         return length;
     }
 }
+
+
+// 2024.7.30
+
+class Solution {
+    public TreeNode sortedListToBST(ListNode head) {
+        if (head == null) {
+            return null;
+        }
+        int[] ary = new int[20000];
+        int i = 0;
+        while (head != null) {
+            ary[i++] = head.val;
+            head = head.next;
+        }
+        return build(ary, 0, i - 1);
+    }
+
+    public TreeNode build(int[] ary, int start, int end) {
+        if (start > end) {
+            return null;
+        }
+        int mid = (end + start) >> 1;
+        TreeNode root = new TreeNode(ary[mid]);
+        root.left = build(ary, start, mid - 1);
+        root.right = build(ary, mid + 1, end);
+        return root;
+    }
+}
